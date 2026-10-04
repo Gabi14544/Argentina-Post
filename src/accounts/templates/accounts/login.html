@@ -1,1 +1,6 @@
-<h1>Iniciar Sesion</h1>
+<h1>Iniciar Sesión</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Entrar</button>
+</form>
