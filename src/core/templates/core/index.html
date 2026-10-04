@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Articulos Disponibles</h2>  
+  <ul>
+    {% for articulo in articulos  %}
+        <li>{{articulo.title}} | {{articulo.content}}</li>
+    {% endfor %}
+  </ul>
+{% endblock content%}
+
