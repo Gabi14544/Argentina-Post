@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>Articulos Disponibles</h2>  
-  <ul>
+  <h2>Articulos Disponibles</h2> 
     {% for articulo in articulos  %}
-        <li>{{articulo.title}} | {{articulo.content}}</li>
+        <h2>
+             <a href="{% url 'articles:detalle' articulo.id %}">
+                {{ articulo.title }}
+            </a>
+        </h2>
+            <p>{{ articulo.subtitle }}</p> 
     {% endfor %}
-  </ul>
 {% endblock content%}
 

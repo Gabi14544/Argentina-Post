@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <article>
+    <h1>{{ articulo.title }}</h1>
+    <h2>{{ articulo.subtitle }}</h2>
+    
+    <p><strong>Por:</strong> {{ articulo.author.first_name }} {{ articulo.author.last_name }}</p>
+    <p><strong>Categoría:</strong> {{ articulo.category.name }}</p>
+    <p><strong>Fecha:</strong> {{ articulo.created_at }}</p>
+
+    <hr>
+    
+    <div class="contenido-principal">
+      <h3>Contenido Principal</h3>
+      <p>{{ articulo.content }}</p>
+    </div>
+
+    {% if articulo.optional_content %}
+      <div class="contenido-opcional">
+        <h3>Contenido Opcional</h3>
+        <p>{{ articulo.optional_content }}</p>
+      </div>
+    {% endif %}
+    
+    <br>
+    <a href="{% url 'core:home' %}">Volver al inicio</a>
+  </article>
+{% endblock %}

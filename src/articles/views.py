@@ -6,7 +6,7 @@ from articles.models import Articulos
 
 class ArticleDetailView(DetailView):
     model = Articulos
-    template_name = 'article/article_detail.html'
+    template_name = 'articles/article_datail.html'
     context_object_name = 'articulo'
 
     
