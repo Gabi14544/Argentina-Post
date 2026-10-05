@@ -119,7 +119,7 @@ class ArticleUpdateViewTests(ArticuloTestData):
     def test_editar_post_autor_modifica_articulo(self):
         self.client.force_login(self.autor)
         response = self.client.post(reverse('articles:editar', args=[self.articulo.pk]), self.datos_form)
-        self.assertRedirects(response, reverse('core:home'))
+        self.assertRedirects(response, reverse('articles:mis-articulos'))
         self.articulo.refresh_from_db()
         self.assertEqual(self.articulo.title, 'Título nuevo')
         self.assertEqual(self.articulo.content, 'Contenido nuevo')
@@ -152,5 +152,53 @@ class ArticleDeleteViewTests(ArticuloTestData):
         self.client.force_login(self.autor)
         pk = self.articulo.pk
         response = self.client.post(reverse('articles:eliminar', args=[pk]))
-        self.assertRedirects(response, reverse('core:home'))
+        self.assertRedirects(response, reverse('articles:mis-articulos'))
         self.assertFalse(Articulos.objects.filter(pk=pk).exists())
+
+
+class MisArticulosTests(ArticuloTestData):
+    def test_mis_articulos_requiere_login(self):
+        url = reverse('articles:mis-articulos')
+        response = self.client.get(url)
+        self.assertRedirects(response, f"{reverse('accounts:login')}?next={url}")
+
+    def test_mis_articulos_status_y_template(self):
+        self.client.force_login(self.autor)
+        response = self.client.get(reverse('articles:mis-articulos'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'articles/mis_articulos.html')
+        self.assertTemplateUsed(response, 'base.html')
+
+    def test_mis_articulos_solo_muestra_los_propios(self):
+        Articulos.objects.create(
+            title='Artículo de Luis',
+            content='Contenido de Luis',
+            author=self.otro,
+            category=self.categoria,
+        )
+        self.client.force_login(self.autor)
+        response = self.client.get(reverse('articles:mis-articulos'))
+        self.assertContains(response, 'Título original')
+        self.assertNotContains(response, 'Artículo de Luis')
+        self.assertEqual(len(response.context['articulos']), 1)
+        self.assertIn(self.articulo, list(response.context['articulos']))
+
+    def test_mis_articulos_vacio_muestra_estado_inicial(self):
+        self.client.force_login(self.otro)
+        response = self.client.get(reverse('articles:mis-articulos'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Todavía no publicaste artículos.')
+        self.assertNotContains(response, 'Título original')
+
+    def test_mis_articulos_incluye_acciones_editar_eliminar(self):
+        self.client.force_login(self.autor)
+        response = self.client.get(reverse('articles:mis-articulos'))
+        self.assertContains(response, reverse('articles:editar', args=[self.articulo.pk]))
+        self.assertContains(response, reverse('articles:eliminar', args=[self.articulo.pk]))
+        self.assertContains(response, reverse('articles:detalle', args=[self.articulo.pk]))
+
+    def test_nuevo_articulo_aparece_en_el_panel(self):
+        self.client.force_login(self.otro)
+        self.client.post(reverse('articles:crear'), self.datos_form)
+        response = self.client.get(reverse('articles:mis-articulos'))
+        self.assertContains(response, 'Título nuevo')

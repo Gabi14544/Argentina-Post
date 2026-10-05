@@ -47,3 +47,12 @@ class CorePortadaTests(TestCase):
         response = self.client.get(reverse('core:home'))
         self.assertContains(response, reverse('articles:crear'))
         self.assertNotContains(response, reverse('accounts:login'))
+
+    def test_nav_anonimo_no_muestra_mis_articulos(self):
+        response = self.client.get(reverse('core:home'))
+        self.assertNotContains(response, reverse('articles:mis-articulos'))
+
+    def test_nav_autenticado_muestra_mis_articulos(self):
+        self.client.force_login(self.autor)
+        response = self.client.get(reverse('core:home'))
+        self.assertContains(response, reverse('articles:mis-articulos'))

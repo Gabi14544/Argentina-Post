@@ -448,11 +448,45 @@ textarea.form-control {
   flex-wrap: wrap;
 }
 
-/* 6. RESPONSIVE DESIGN PARA ARTÍCULOS */
+/* 6. PANEL "MIS ARTÍCULOS" */
+.grid-mis-articulos {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.75rem;
+  align-items: stretch;
+}
+
+.tarjeta-acciones {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: var(--comic-border);
+}
+
+.tarjeta-acciones-centrado {
+  justify-content: center;
+  border-top: none;
+  padding-top: 0;
+}
+
+.tarjeta-vacia {
+  text-align: center;
+  padding: 3rem 1.5rem;
+}
+
+/* 7. RESPONSIVE DESIGN PARA ARTÍCULOS */
 @media (max-width: 900px) {
   .grid-portada {
     grid-template-columns: 1fr;
     gap: 2rem;
+  }
+
+  .grid-mis-articulos {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
   
   .columna-secundaria {

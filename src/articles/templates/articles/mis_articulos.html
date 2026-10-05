@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Mis Artículos | Argentina Post{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'articles/css/style.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<section class="portada-header">
+    <h2 class="portada-titulo">Mis Artículos</h2>
+    <a href="{% url 'articles:crear' %}" class="btn-comic">Crear Artículo</a>
+</section>
+
+{% if articulos %}
+<div class="grid-mis-articulos">
+    {% for articulo in articulos %}
+    <article class="tarjeta-articulo">
+        {% if articulo.category %}
+        <div class="articulo-categoria-wrapper">
+            <span class="badge-comic">{{ articulo.category.name }}</span>
+        </div>
+        {% endif %}
+
+        <h3 class="articulo-titulo">
+            <a href="{% url 'articles:detalle' articulo.pk %}">
+                {{ articulo.title }}
+            </a>
+        </h3>
+
+        {% if articulo.subtitle %}
+        <p class="articulo-subtitulo">{{ articulo.subtitle }}</p>
+        {% endif %}
+
+        <div class="articulo-meta">
+            <span class="articulo-autor">Por {{ articulo.author.first_name }} {{ articulo.author.last_name }}</span>
+            {% if articulo.crated_at %}
+            <span class="articulo-fecha">{{ articulo.crated_at|date:"d M Y" }}</span>
+            {% endif %}
+        </div>
+
+        <div class="tarjeta-acciones">
+            <a href="{% url 'articles:detalle' articulo.pk %}" class="btn-comic">Ver Nota</a>
+            <a href="{% url 'articles:editar' articulo.pk %}" class="btn-comic">Editar</a>
+            <a href="{% url 'articles:eliminar' articulo.pk %}" class="btn-sober">Eliminar</a>
+        </div>
+    </article>
+    {% endfor %}
+</div>
+{% else %}
+<div class="tarjeta-articulo tarjeta-vacia">
+    <h3 class="articulo-titulo">Todavía no publicaste artículos.</h3>
+    <p class="articulo-subtitulo">Creá tu primera nota y aparecerá en este panel para que puedas editarla o eliminarla.</p>
+    <div class="tarjeta-acciones tarjeta-acciones-centrado">
+        <a href="{% url 'articles:crear' %}" class="btn-comic">Crear Artículo</a>
+    </div>
+</div>
+{% endif %}
+{% endblock content %}

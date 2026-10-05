@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import DetailView,CreateView,UpdateView,DeleteView
+from django.views.generic import DetailView,CreateView,UpdateView,DeleteView,ListView
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.urls import reverse_lazy
 from articles.models import Articulos
@@ -26,7 +26,7 @@ class ArticleUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Articulos
     form_class = ArticuloForm
     template_name = 'articles/article_update.html'
-    success_url = reverse_lazy('core:home')
+    success_url = reverse_lazy('articles:mis-articulos')
 
     def test_func(self):
         articulo = self.get_object()
@@ -36,8 +36,17 @@ class ArticleUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 class ArticleDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Articulos
     template_name = 'articles/article_delete.html'
-    success_url = reverse_lazy('core:home')
+    success_url = reverse_lazy('articles:mis-articulos')
 
     def test_func(self):
         articulo = self.get_object()
         return self.request.user == articulo.author or self.request.user.is_staff
+
+
+class MisArticulosView(LoginRequiredMixin, ListView):
+    model = Articulos
+    template_name = 'articles/mis_articulos.html'
+    context_object_name = 'articulos'
+
+    def get_queryset(self):
+        return Articulos.objects.filter(author=self.request.user).order_by('-crated_at')
