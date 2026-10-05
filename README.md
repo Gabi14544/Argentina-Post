@@ -1,6 +1,6 @@
 # Argentina Post 🇦🇷📰
 
-Periódico editorial digital construido con **Django**: los usuarios pueden leer artículos públicamente y, al iniciar sesión, crear, editar y eliminar sus propias crónicas.
+Periódico editorial digital construido con **Django**: los usuarios pueden leer artículos públicamente y, al iniciar sesión, crear, editar y eliminar sus propias crónicas desde el panel **Mis Artículos**.
 ---
 
 ## Características
@@ -11,6 +11,7 @@ Periódico editorial digital construido con **Django**: los usuarios pueden leer
 - **CRUD completo de artículos**:
   - `Crear` → cualquier usuario autenticado.
   - `Editar` / `Eliminar` → solo el **autor** del artículo (o un usuario `staff`).
+- **Panel "Mis Artículos"** (`/articulos/mis-articulos/`): lista solo los artículos creados por el usuario autenticado, con acciones *Ver Nota*, *Editar* y *Eliminar* en cada tarjeta, y estado vacío con atajo para crear el primero.
 - **Acceso público de solo lectura**: el usuario no autenticado únicamente ve los artículos en la portada y el detalle.
 - **Admin de Django** para gestionar artículos y categorías.
 - Estética periodística (The Economist) con toques cómic, responsive y sin dependencias de frontend.
@@ -55,10 +56,10 @@ Argentina-Post/
     └── articles/               # Modelos y CRUD de artículos
         ├── models.py           # Categoria, Articulos
         ├── forms.py            # ArticuloForm
-        ├── views.py            # Detail, Create, Update, Delete
+        ├── views.py            # Detail, Create, Update, Delete, MisArticulos
         ├── urls.py
         ├── admin.py
-        ├── templates/articles/ # article_create / update / delete / datail
+        ├── templates/articles/ # article_create / update / delete / datail, mis_articulos
         └── static/articles/css/style.css
 ```
 
@@ -98,6 +99,7 @@ uv run python src/manage.py runserver
 | `/articulos/crear/` | `articles:crear` | Autenticado |
 | `/articulos/editar/<pk>/` | `articles:editar` | Autor o staff |
 | `/articulos/eliminar/<pk>/` | `articles:eliminar` | Autor o staff |
+| `/articulos/mis-articulos/` | `articles:mis-articulos` (panel propio) | Autenticado |
 | `/accounts/` | `accounts:registro` | Público |
 | `/accounts/login/` | `accounts:login` | Público |
 | `/accounts/logout` | `accounts:logout` | Autenticado (POST) |
@@ -122,12 +124,14 @@ Articulos
 ## Lógica de autenticación y permisos
 
 - **`base.html`** renderiza los enlaces de navegación con `{% if user.is_authenticated %}`:
-  - Autenticado → *Crear Artículo*, saludo de usuario y *Logout*.
+  - Autenticado → *Mis Artículos*, *Crear Artículo*, saludo de usuario y *Logout*.
   - Anónimo → *Login* y *Registrar*.
-- **`LoginRequiredMixin`** en las vistas `Create`, `Update` y `Delete`: si no hay sesión, redirige a `/accounts/login/?next=...`.
+- **`LoginRequiredMixin`** en las vistas `Create`, `Update`, `Delete` y `MisArticulos`: si no hay sesión, redirige a `/accounts/login/?next=...`.
 - **`UserPassesTestMixin`** en `Update` y `Delete`: el `test_func` valida `user == articulo.author or user.is_staff`, devolviendo **403** al resto.
+- **`MisArticulosView`** filtra el queryset con `author=self.request.user` (incluye al staff, que ve solo lo suyo en el panel) y ordena por `-crated_at`.
 - En `article_datail.html` los botones *Editar* / *Eliminar* solo se pintan para el autor (o staff).
 - Al crear un artículo, `form.instance.author = self.request.user` lo asigna automáticamente.
+- Después de **editar** o **eliminar**, el usuario vuelve al panel `articles:mis-articulos`.
 
 ## Templates
 
@@ -139,6 +143,7 @@ Articulos
 | `articles/article_create.html` | Formulario de alta |
 | `articles/article_update.html` | Formulario de edición (pre-cargado) |
 | `articles/article_delete.html` | Confirmación de baja (POST) |
+| `articles/mis_articulos.html` | Panel de artículos propios con editar/eliminar |
 | `accounts/login.html` / `registro.html` | Autenticación |
 
 > Nota: el nombre `article_datail.html` es el que usa `ArticleDetailView` (typo histórico del proyecto).
@@ -151,9 +156,11 @@ uv run python src/manage.py test core articles accounts
 
 | Módulo | Cubre |
 |---|---|
-| `core` | Portada (200, artículos, estado vacío) y menú según `is_authenticated` |
-| `articles` | Detalle con/ sin botones, crear/editar/eliminar, redirección a login y 403 para no autores |
+| `core` | Portada (200, artículos, estado vacío) y menú según `is_authenticated` (incluido enlace a *Mis Artículos*) |
+| `articles` | Detalle con/ sin botones, crear/editar/eliminar, redirección a login, 403 para no autores y panel *Mis Artículos* (solo artículos propios, acciones, estado vacío y artículos recién creados) |
 | `accounts` | Login, logout, registro válido e inválido |
+
+> Suite completa: **35 tests**.
 
 > Los tests usan `MD5PasswordHasher` en `accounts` porque PBKDF2 es muy lento en esta máquina; nunca se usa fuera de tests.
 
