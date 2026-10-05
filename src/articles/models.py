@@ -15,7 +15,7 @@ class Articulos(models.Model):
     opcional_content = models.TextField(blank=True,null=True)
     author = models.ForeignKey(User,on_delete=models.CASCADE)
     category = models.ForeignKey(Categoria,on_delete = models.CASCADE)
-    crated_ad =models.DateTimeField(auto_now_add=True)
+    crated_at =models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = "Articulo"

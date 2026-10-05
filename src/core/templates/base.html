@@ -1,28 +1,35 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Argentina Post</title>
 </head>
+
 <body>
     <header>
         <h1>ARGENTINA - POST</h1>
-
         <nav>
-            <a href="#">Inicio</a>
-            <a href="#">Articulos</a>
-            <a href="">Crear Articulo</a>
-        </nav>
-
-        <div>
-            <a href="{% url 'accounts:login' %}">Iniciar Sesion</a>
+            <a href="{% url 'core:home' %}">Inicio - Artículos</a>
+            {% if user.is_authenticated %}
+        
+            <a href="{% url 'articles:crear' %}">Crear Artículo</a>
+            <span>Hola, {{ user.first_name }}</span>
+            <form action="{% url 'accounts:logout' %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+            {% else %}
+            <a href="{% url 'accounts:login' %}">Login</a>
             <a href="{% url 'accounts:registro' %}">Registrar</a>
-        </div>
+            {% endif %}
+        </nav>
     </header>
     <main>
-        {% block content %} 
+        {% block content %}
         {% endblock content %}
     </main>
 </body>
+
 </html>
