@@ -1,6 +1,28 @@
-<h1>Registrate como POST</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Registrarse</button>
-</form>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Registrate como POST | Argentina Post{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'accounts/css/style.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<div class="auth-card-wrapper">
+    <div class="auth-card">
+        <h1 class="auth-card-title">Registrate como POST</h1>
+        <div class="auth-card-body">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="auth-card-actions">
+                    <button type="submit" class="btn-comic">Registrarse</button>
+                </div>
+            </form>
+            <div class="auth-card-footer">
+                <p>¿Ya tenés una cuenta? <a href="{% url 'accounts:login' %}">Iniciá sesión acá</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,14 +1,101 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'articles/css/style.css' %}">
+{% endblock extra_css %}
 
 {% block content %}
-  <h2>Articulos Disponibles</h2> 
-    {% for articulo in articulos  %}
-        <h2>
-             <a href="{% url 'articles:detalle' articulo.id %}">
-                {{ articulo.title }}
-            </a>
-        </h2>
-            <p>{{ articulo.subtitle }}</p> 
-    {% endfor %}
-{% endblock content%}
+<section class="portada-header">
+    <h2 class="portada-titulo">Artículos Disponibles</h2>
+    <span class="portada-edicion">Edición Impresa &bull; Crónica Actual</span>
+</section>
 
+{% if articulos %}
+<div class="grid-portada">
+    <!-- Columna Izquierda: Artículo Principal / Destacado -->
+    <div class="columna-principal">
+        {% for articulo in articulos %}
+            {% if forloop.first %}
+            <article class="tarjeta-articulo tarjeta-destacada">
+                {% if articulo.category %}
+                <div class="articulo-categoria-wrapper">
+                    <span class="badge-comic">{{ articulo.category.name }}</span>
+                </div>
+                {% endif %}
+
+                <h3 class="articulo-titulo">
+                    <a href="{% url 'articles:detalle' articulo.id %}">
+                        {{ articulo.title }}
+                    </a>
+                </h3>
+
+                {% if articulo.subtitle %}
+                <p class="articulo-subtitulo">{{ articulo.subtitle }}</p>
+                {% endif %}
+
+                <div class="articulo-meta">
+                    {% if articulo.author %}
+                    <span class="articulo-autor">Por {{ articulo.author.first_name }} {{ articulo.author.last_name }}</span>
+                    {% endif %}
+                    {% if articulo.crated_at %}
+                    <span class="articulo-fecha">{{ articulo.crated_at|date:"d M Y" }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="articulo-leer-mas">
+                    <a href="{% url 'articles:detalle' articulo.id %}" class="btn-comic">Leer Nota Completa &rarr;</a>
+                </div>
+            </article>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <!-- Columna Derecha: Artículos Secundarios con divisor grueso -->
+    <aside class="columna-secundaria">
+        <h3 class="columna-secundaria-titulo">Otras Voces &bull; Análisis</h3>
+        
+        {% for articulo in articulos %}
+            {% if not forloop.first %}
+            <article class="tarjeta-articulo tarjeta-secundaria">
+                {% if articulo.category %}
+                <div class="articulo-categoria-wrapper">
+                    <span class="badge-comic">{{ articulo.category.name }}</span>
+                </div>
+                {% endif %}
+
+                <h4 class="articulo-titulo">
+                    <a href="{% url 'articles:detalle' articulo.id %}">
+                        {{ articulo.title }}
+                    </a>
+                </h4>
+
+                {% if articulo.subtitle %}
+                <p class="articulo-subtitulo">{{ articulo.subtitle }}</p>
+                {% endif %}
+
+                <div class="articulo-meta">
+                    {% if articulo.author %}
+                    <span class="articulo-autor">{{ articulo.author.first_name }}</span>
+                    {% endif %}
+                    {% if articulo.crated_at %}
+                    <span class="articulo-fecha">&bull; {{ articulo.crated_at|date:"d M Y" }}</span>
+                    {% endif %}
+                </div>
+            </article>
+            {% endif %}
+        {% endfor %}
+    </aside>
+</div>
+{% else %}
+<div class="tarjeta-articulo" style="text-align: center; padding: 3rem;">
+    <h3 class="articulo-titulo">No hay artículos disponibles en este momento.</h3>
+    <p class="articulo-subtitulo">Sé el primero en publicar una historia en Argentina Post.</p>
+    {% if user.is_authenticated %}
+    <div style="margin-top: 1.5rem;">
+        <a href="{% url 'articles:crear' %}" class="btn-comic">Crear Artículo</a>
+    </div>
+    {% endif %}
+</div>
+{% endif %}
+{% endblock content %}

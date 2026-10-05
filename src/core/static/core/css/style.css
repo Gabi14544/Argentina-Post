@@ -1,0 +1,404 @@
+/* ==========================================================================
+   ARGENTINA POST - ESTILOS GLOBALES
+   Fusión: The Economist (Elegancia Editorial) + Comic / Manga (Fuerza Gráfica)
+   ========================================================================== */
+
+/* 1. FUENTES DE GOOGLE */
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600;1,700&display=swap');
+
+/* 2. VARIABLES DE DISEÑO */
+:root {
+  --red-economist: #E3120B;
+  --red-economist-dark: #B80E08;
+  --black-comic: #000000;
+  --white: #FFFFFF;
+  --bg-paper: #FDFCFA;
+  --bg-light: #F4F4F4;
+  --gray-medium: #767676;
+  --gray-dark: #1A1A1A;
+  
+  --comic-border: 3px solid #000000;
+  --comic-border-thin: 2px solid #000000;
+  --comic-border-thick: 4px solid #000000;
+  --comic-shadow: 5px 5px 0px 0px #000000;
+  --comic-shadow-sm: 3px 3px 0px 0px #000000;
+  --comic-shadow-lg: 8px 8px 0px 0px #000000;
+  
+  --font-title: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body: 'Merriweather', Georgia, serif;
+  --font-comic: 'Bangers', cursive, 'Impact', sans-serif;
+}
+
+/* 3. RESET Y BASE */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-paper);
+  color: var(--black-comic);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 4. CLASES DE UTILIDAD (COMIC & THE ECONOMIST) */
+.comic-border {
+  border: var(--comic-border);
+}
+
+.comic-shadow {
+  box-shadow: var(--comic-shadow);
+}
+
+.text-economist-red {
+  color: var(--red-economist) !important;
+}
+
+.bg-economist-red {
+  background-color: var(--red-economist) !important;
+  color: var(--white) !important;
+}
+
+/* Botón estilo cómic principal */
+.btn-comic {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--red-economist);
+  color: var(--white) !important;
+  font-family: var(--font-comic);
+  font-size: 1.25rem;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 0.55rem 1.35rem;
+  border: var(--comic-border);
+  box-shadow: var(--comic-shadow);
+  text-decoration: none;
+  cursor: pointer;
+  line-height: 1.1;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease;
+  user-select: none;
+}
+
+.btn-comic:hover {
+  background-color: var(--red-economist-dark);
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0px 0px #000000;
+}
+
+.btn-comic:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px 0px #000000;
+}
+
+/* Botón sobrio (The Economist style) */
+.btn-sober {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--white);
+  color: var(--black-comic) !important;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0.45rem 1rem;
+  border: var(--comic-border-thin);
+  box-shadow: var(--comic-shadow-sm);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  line-height: 1.2;
+}
+
+.btn-sober:hover {
+  background-color: var(--black-comic);
+  color: var(--white) !important;
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px 0px #000000;
+}
+
+.btn-sober:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px 0px #000000;
+}
+
+/* Etiqueta / Badge de Categoría Cómic */
+.badge-comic {
+  display: inline-block;
+  background-color: var(--red-economist);
+  color: var(--white);
+  font-family: var(--font-comic);
+  font-size: 0.95rem;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 0.2rem 0.65rem;
+  border: var(--comic-border-thin);
+  box-shadow: 2px 2px 0px 0px #000000;
+  line-height: 1.1;
+}
+
+/* 5. HEADER Y NAVBAR */
+.site-header {
+  width: 100%;
+  background-color: var(--white);
+}
+
+/* Franja superior editorial (The Economist red band) */
+.header-top {
+  background-color: var(--red-economist);
+  border-bottom: var(--comic-border);
+  padding: 0.75rem 1.25rem;
+}
+
+.header-top-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo en bloque rojo con letras blancas icónicas */
+.brand-block {
+  display: inline-block;
+  background-color: var(--red-economist);
+  padding: 0.25rem 0.5rem;
+  text-decoration: none;
+}
+
+.brand-title {
+  font-family: var(--font-title);
+  font-size: 2.4rem;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  color: var(--white);
+  text-transform: uppercase;
+  line-height: 1;
+  text-shadow: 2px 2px 0px #000000;
+}
+
+.brand-tagline {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0.95;
+}
+
+/* Barra de navegación inferior blanca con borde grueso */
+.site-nav {
+  background-color: var(--white);
+  border-bottom: var(--comic-border-thick);
+  padding: 0.6rem 1.25rem;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nav-link {
+  font-family: var(--font-title);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--black-comic);
+  position: relative;
+  padding: 0.3rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background-color: var(--red-economist);
+  transition: width 0.2s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-auth {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.user-greeting {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-style: italic;
+  font-weight: 700;
+  color: var(--gray-dark);
+  background-color: var(--bg-light);
+  border: var(--comic-border-thin);
+  padding: 0.35rem 0.75rem;
+  box-shadow: 2px 2px 0px 0px #000000;
+}
+
+/* 6. CONTENIDO PRINCIPAL */
+.main-container {
+  flex: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.25rem 1.25rem;
+}
+
+/* 7. FOOTER OSCURO CON BORDES GRUESOS */
+.site-footer {
+  background-color: var(--gray-dark);
+  color: var(--white);
+  border-top: var(--comic-border-thick);
+  padding: 2.5rem 1.25rem 1.5rem;
+  margin-top: auto;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid #333333;
+}
+
+.footer-brand h3 {
+  font-family: var(--font-title);
+  font-size: 1.8rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+}
+
+.footer-brand p {
+  color: #BDBDBD;
+  font-size: 0.9rem;
+  max-width: 500px;
+  line-height: 1.6;
+}
+
+.footer-tagline-box {
+  display: inline-block;
+  background-color: var(--red-economist);
+  color: var(--white);
+  font-family: var(--font-comic);
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  padding: 0.25rem 0.75rem;
+  border: 2px solid #000000;
+  box-shadow: 3px 3px 0px 0px #000000;
+  margin-top: 0.75rem;
+}
+
+.footer-col h4 {
+  font-family: var(--font-comic);
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+  color: var(--red-economist);
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.footer-col p {
+  font-size: 0.85rem;
+  color: #A0A0A0;
+}
+
+.footer-bottom {
+  max-width: 1200px;
+  margin: 1.25rem auto 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: #888888;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* 8. RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  .brand-title {
+    font-size: 1.8rem;
+  }
+  
+  .header-top-inner {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+  
+  .nav-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  
+  .nav-links {
+    justify-content: center;
+  }
+  
+  .nav-auth {
+    justify-content: center;
+  }
+  
+  .footer-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  
+  .footer-brand p {
+    margin: 0 auto;
+  }
+  
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+}

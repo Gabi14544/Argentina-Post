@@ -1,0 +1,228 @@
+/* ==========================================================================
+   ARGENTINA POST - ESTILOS DE AUTENTICACIÓN (LOGIN & REGISTRO)
+   Fusión: The Economist (Elegancia Editorial) + Comic / Manga (Fuerza Gráfica)
+   ========================================================================== */
+
+/* 1. CONTENEDOR PRINCIPAL */
+.auth-card-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 60vh;
+  padding: 1.5rem 1rem 3rem 1rem;
+}
+
+/* 2. TARJETA DE AUTENTICACIÓN (COMIC CARD) */
+.auth-card {
+  width: 100%;
+  max-width: 500px;
+  background-color: var(--white, #FFFFFF);
+  border: 3px solid #000000;
+  box-shadow: 8px 8px 0px 0px #000000;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+/* 3. TÍTULO CON FONDO ROJO Y ESTILO EDITORIAL / CÓMIC */
+.auth-card-title,
+.auth-card h1 {
+  background-color: var(--red-economist, #E3120B);
+  color: var(--white, #FFFFFF);
+  font-family: var(--font-comic, 'Bangers', cursive, sans-serif);
+  font-size: 2.2rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 1.25rem 1.5rem;
+  margin: 0;
+  border-bottom: 3px solid #000000;
+  text-shadow: 2px 2px 0px #000000;
+  line-height: 1.15;
+}
+
+/* 4. CUERPO DEL FORMULARIO */
+.auth-card-body {
+  padding: 2.25rem 2rem;
+  background-color: var(--white, #FFFFFF);
+}
+
+/* Párrafos generados por {{ form.as_p }} */
+.auth-card-body form p {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-card-body form p:last-of-type {
+  margin-bottom: 1.25rem;
+}
+
+/* Etiquetas (Labels) con estilo serif editorial */
+.auth-card-body label {
+  display: block;
+  font-family: var(--font-title, 'Playfair Display', Georgia, serif);
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--black-comic, #000000);
+  margin-bottom: 0.45rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Campos de entrada (Inputs) con borde negro de 2px y sombra cómic */
+.auth-card-body input[type="text"],
+.auth-card-body input[type="password"],
+.auth-card-body input[type="email"] {
+  width: 100%;
+  border: 2px solid #000000;
+  background-color: #FFFFFF;
+  color: var(--black-comic, #000000);
+  font-family: var(--font-body, 'Merriweather', Georgia, serif);
+  font-size: 0.95rem;
+  padding: 0.8rem 1rem;
+  box-shadow: 3px 3px 0px 0px #000000;
+  border-radius: 0;
+  outline: none;
+  box-sizing: border-box;
+  line-height: 1.5;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* Estado Focus con resalte rojo */
+.auth-card-body input[type="text"]:focus,
+.auth-card-body input[type="password"]:focus,
+.auth-card-body input[type="email"]:focus {
+  border-color: var(--red-economist, #E3120B);
+  box-shadow: 4px 4px 0px 0px var(--red-economist, #E3120B);
+  background-color: #FFFFFF;
+}
+
+/* 5. TEXTOS DE AYUDA Y VALIDACIÓN DE CONTRASEÑA */
+.auth-card-body .helptext {
+  display: block;
+  font-family: var(--font-body, 'Merriweather', Georgia, serif);
+  font-size: 0.82rem;
+  font-style: italic;
+  color: #555555;
+  margin-top: 0.45rem;
+  line-height: 1.45;
+}
+
+.auth-card-body .helptext ul {
+  margin: 0.4rem 0 0.25rem 0;
+  padding-left: 1.25rem;
+  list-style-type: disc;
+}
+
+.auth-card-body .helptext li {
+  margin-bottom: 0.25rem;
+  font-size: 0.8rem;
+  color: #555555;
+}
+
+/* 6. LISTA DE ERRORES DE FORMULARIO (DJANGO ERRORLIST) */
+.auth-card-body .errorlist {
+  background-color: #FFECEB;
+  border: 2px solid #000000;
+  border-left: 6px solid var(--red-economist, #E3120B);
+  padding: 0.55rem 0.85rem;
+  color: var(--red-economist, #E3120B);
+  font-family: var(--font-body, 'Merriweather', Georgia, serif);
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 0.85rem;
+  list-style: none;
+  box-shadow: 2px 2px 0px 0px #000000;
+}
+
+.auth-card-body .errorlist li {
+  margin: 0.15rem 0;
+}
+
+/* 7. BOTÓN DE ENVÍO CON EFECTO HUNDIDO */
+.auth-card-actions {
+  margin-top: 1.75rem;
+}
+
+.auth-card-actions .btn-comic,
+.auth-card .btn-comic {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--red-economist, #E3120B);
+  color: var(--white, #FFFFFF) !important;
+  font-family: var(--font-comic, 'Bangers', cursive, sans-serif);
+  font-size: 1.35rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 0.75rem 1.5rem;
+  border: 3px solid #000000;
+  box-shadow: 5px 5px 0px 0px #000000;
+  cursor: pointer;
+  line-height: 1.1;
+  text-decoration: none;
+  user-select: none;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease;
+}
+
+/* Efecto al pasar el mouse: se hunde reduciendo la sombra a 0px */
+.auth-card-actions .btn-comic:hover,
+.auth-card .btn-comic:hover {
+  background-color: var(--red-economist-dark, #B80E08);
+  transform: translate(5px, 5px);
+  box-shadow: 0px 0px 0px 0px #000000;
+}
+
+.auth-card-actions .btn-comic:active,
+.auth-card .btn-comic:active {
+  transform: translate(5px, 5px);
+  box-shadow: 0px 0px 0px 0px #000000;
+}
+
+/* 8. FOOTER INFORMATIVO DE LA TARJETA (ENLACES DE NAVEGACIÓN) */
+.auth-card-footer {
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 2px solid #000000;
+  text-align: center;
+  font-size: 0.88rem;
+  color: #444444;
+  font-family: var(--font-body, 'Merriweather', Georgia, serif);
+}
+
+.auth-card-footer a {
+  color: var(--red-economist, #E3120B);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.15s ease;
+}
+
+.auth-card-footer a:hover {
+  color: #000000;
+}
+
+/* 9. RESPONSIVE DESIGN */
+@media (max-width: 576px) {
+  .auth-card-wrapper {
+    padding: 1rem 0.5rem 2rem 0.5rem;
+  }
+
+  .auth-card-title,
+  .auth-card h1 {
+    font-size: 1.8rem;
+    padding: 1rem;
+  }
+
+  .auth-card-body {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .auth-card-actions .btn-comic,
+  .auth-card .btn-comic {
+    font-size: 1.2rem;
+    padding: 0.65rem 1.25rem;
+  }
+}
