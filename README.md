@@ -104,7 +104,7 @@ Abrí [http://127.0.0.1:8000/](http://127.0.0.1:8000/) para la portada y [http:/
 | `uv run python src/manage.py migrate` | Aplica migraciones |
 | `uv run python src/manage.py createsuperuser` | Crea superusuario del admin |
 | `uv run python src/manage.py shell` | Shell interactivo de Django |
-| `uv run python src/manage.py test` | Ejecuta las pruebas automáticas |
+| `uv run python src/manage.py test core articles accounts` | Ejecuta las pruebas automáticas |
 | `uv run djlint src --check` | Lintea los templates HTML |
 
 ---
@@ -162,6 +162,20 @@ Articulos
 | `accounts/login.html` / `registro.html` | Autenticación |
 
 > Nota: el nombre `article_datail.html` es el que usa `ArticleDetailView` (typo histórico del proyecto).
+
+## Tests
+
+```bash
+uv run python src/manage.py test core articles accounts
+```
+
+| Módulo | Cubre |
+|---|---|
+| `core` | Portada (200, artículos, estado vacío) y menú según `is_authenticated` |
+| `articles` | Detalle con/ sin botones, crear/editar/eliminar, redirección a login y 403 para no autores |
+| `accounts` | Login, logout, registro válido e inválido |
+
+> Los tests usan `MD5PasswordHasher` en `accounts` porque PBKDF2 es muy lento en esta máquina; nunca se usa fuera de tests.
 
 ## Documentación complementaria
 
