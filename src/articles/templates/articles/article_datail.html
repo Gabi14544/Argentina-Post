@@ -49,6 +49,10 @@
 
     <div class="detalle-acciones">
         <a href="{% url 'core:home' %}" class="btn-comic">&larr; Volver al inicio</a>
+        {% if user.is_authenticated and user == articulo.author or user.is_staff %}
+        <a href="{% url 'articles:editar' articulo.pk %}" class="btn-comic">Editar</a>
+        <a href="{% url 'articles:eliminar' articulo.pk %}" class="btn-sober">Eliminar</a>
+        {% endif %}
     </div>
 </article>
 {% endblock content %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Eliminar: {{ object.title }} | Argentina Post{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'articles/css/style.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<div class="formulario-articulo-wrapper">
+    <div class="formulario-articulo-header">
+        <span class="formulario-articulo-badge">Mesa de Redacción</span>
+        <h1>Eliminar Artículo</h1>
+        <p style="color: #666; font-size: 0.95rem; font-style: italic;">Esta acción no se puede deshacer</p>
+    </div>
+
+    <div class="detalle-cuerpo" style="margin-bottom: 1.5rem;">
+        <p><strong>Título:</strong> {{ object.title }}</p>
+        {% if object.subtitle %}
+        <p><strong>Subtítulo:</strong> {{ object.subtitle }}</p>
+        {% endif %}
+        {% if object.author %}
+        <p><strong>Autor:</strong> {{ object.author.first_name }} {{ object.author.last_name }}</p>
+        {% endif %}
+        {% if object.category %}
+        <p><strong>Categoría:</strong> {{ object.category.name }}</p>
+        {% endif %}
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-acciones">
+            <button type="submit" class="btn-comic">Sí, eliminar artículo &rarr;</button>
+            <a href="{% url 'articles:detalle' object.pk %}" class="btn-sober">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock content %}
