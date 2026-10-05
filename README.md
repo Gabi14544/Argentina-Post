@@ -34,9 +34,6 @@ Periódico editorial digital construido con **Django**: los usuarios pueden leer
 Argentina-Post/
 ├── pyproject.toml              # Dependencias (uv)
 ├── uv.lock
-├── Argentina-Posts.png         # Mockup del proyecto
-├── 1-proyectos-y-entornos.md   # Apuntes: entornos y uv
-├── 2-comandos-django.md        # Apuntes: comandos de Django
 └── src/
     ├── manage.py
     ├── db.sqlite3
