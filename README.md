@@ -1,9 +1,6 @@
 # Argentina Post 🇦🇷📰
 
 Periódico editorial digital construido con **Django**: los usuarios pueden leer artículos públicamente y, al iniciar sesión, crear, editar y eliminar sus propias crónicas.
-
-![Mockup del proyecto](Argentina-Posts.png)
-
 ---
 
 ## Características
@@ -92,22 +89,8 @@ uv run python src/manage.py createsuperuser
 uv run python src/manage.py runserver
 ```
 
-Abrí [http://127.0.0.1:8000/](http://127.0.0.1:8000/) para la portada y [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/) para el panel de administración.
 
-## Comandos útiles
 
-| Comando | Descripción |
-|---|---|
-| `uv run python src/manage.py runserver` | Levanta el servidor de desarrollo |
-| `uv run python src/manage.py check` | Verifica problemas en el proyecto |
-| `uv run python src/manage.py makemigrations` | Genera migraciones |
-| `uv run python src/manage.py migrate` | Aplica migraciones |
-| `uv run python src/manage.py createsuperuser` | Crea superusuario del admin |
-| `uv run python src/manage.py shell` | Shell interactivo de Django |
-| `uv run python src/manage.py test core articles accounts` | Ejecuta las pruebas automáticas |
-| `uv run djlint src --check` | Lintea los templates HTML |
-
----
 
 ## Rutas disponibles
 
@@ -177,7 +160,4 @@ uv run python src/manage.py test core articles accounts
 
 > Los tests usan `MD5PasswordHasher` en `accounts` porque PBKDF2 es muy lento en esta máquina; nunca se usa fuera de tests.
 
-## Documentación complementaria
 
-- [`1-proyectos-y-entornos.md`](1-proyectos-y-entornos.md) — instalación de `uv` y creación de entornos.
-- [`2-comandos-django.md`](2-comandos-django.md) — cheatsheet de comandos de Django.
